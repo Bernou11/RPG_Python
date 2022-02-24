@@ -6,42 +6,43 @@ import csv
 
 
 class Personnage():
-    def __init__(self, nom, sexe, pdv, dmg, classe):
+    def __init__(self, nom, sexe, pdv, dmg, classe, potion):
         self.nom = nom
         self.sexe = sexe
         self.pdv = str(pdv)
         self.dmg = str(dmg)
         self.classe = classe
+        self.potion = potion
 
-ennemie1 = Personnage("Dracula", "M", 30, 5, "Vampire")
-ennemie2 = Personnage("Miss Pacman", "F", 25, 3, "Boule jaune")
-ennemie3 = Personnage("StarFox", "M", 20, 6, "Renard")
+ennemie1 = Personnage("Dracula", "M", 30, 5, "Vampire", "Non")
+ennemie2 = Personnage("Miss Pacman", "F", 25, 3, "Boule jaune","Non")
+ennemie3 = Personnage("StarFox", "M", 20, 6, "Renard","Non")
 
 def lireCSV():
-    with open('Save.csv', 'r') as file:
+    with open('Save.csv', 'r+') as file:
         reader = csv.reader(file)
         for row in reader:
             print(row)
 
 def firstSave(ennemie1, ennemie2, ennemie3, perso):
-    with open('Save.csv', 'w', newline='') as file:  
+    with open('Save.csv', 'w+', newline='') as file:  
         writer = csv.writer(file)
         writer.writerow(["nom", "sexe", "pdv", "dmg", "classe"])
         writer.writerow([ennemie1.nom, ennemie1.sexe, ennemie1.pdv, ennemie1.dmg, ennemie1.classe])
         writer.writerow([ennemie2.nom, ennemie2.sexe, ennemie2.pdv, ennemie2.dmg, ennemie2.classe])
         writer.writerow([ennemie3.nom, ennemie3.sexe, ennemie3.pdv, ennemie3.dmg, ennemie3.classe])
-        writer.writerow([perso.nom, perso.sexe, perso.pdv, perso.dmg, perso.classe])
+        writer.writerow([perso.nom, perso.sexe, perso.pdv, perso.dmg, perso.classe, perso.potion])
 
 nom = input("Choisissez le nom de votre personnage: ")
 sexe = input("Choisissez le sexe de votre personnage (F pour femme et H pour homme): ")
 if sexe == "H" or sexe == "F" or sexe == "h" or sexe == "f":
     classe = int(input("Choisissez votre classe (1 = guerrier, 2 = mage ou 3 = archer): "))
     if classe == 1: 
-        perso = Personnage(nom, sexe, 50, 8, "Guerrier")               
+        perso = Personnage(nom, sexe, 50, 8, "Guerrier","Oui")               
     elif classe == 2:
-        perso = Personnage(nom, sexe, 25, 16, "Mage")
+        perso = Personnage(nom, sexe, 25, 16, "Mage",'Oui')
     elif classe == 3:
-        perso = Personnage(nom, sexe, 35, 13, "Archer")
+        perso = Personnage(nom, sexe, 35, 13, "Archer",'Oui')
     else:
         print("Valeur invalide, veuillez relancer le programme")
 else:
@@ -174,25 +175,25 @@ def tour_ennemis(ennemis_restant):
         elif choix_action_ennemie == 2 and int(ennemie3.pdv) > 0:
             print("Starfox passe son tour\n")
 
-
-firstSave(ennemie1, ennemie2, ennemie3, perso)
-
 ennemis_restant = 3
 potion = 1
 pv_perdus = 0
+if os.path.exists('Save.csv'):
+    pass
+else:
+    firstSave(ennemie1, ennemie2, ennemie3, perso)   
 while int(perso.pdv) > 0 or int(ennemie1.pdv) > 0 and int(ennemie2.pdv) > 0 and int(ennemie3.pdv) > 0:
     print('Votre tour!\n')
-    if potion == 1:
+    if perso.potion == "Oui":
         action = int(input("Voulez vous attaquer ou vous soigner? (1 pour attaquer; 2 pour vous soigner)\n"))
         if action == 1:
             attaque_guerrier(ennemis_restant)
             attaque_mage(ennemis_restant)
             attaque_archer(ennemis_restant)
         elif action == 2:
-            if potion == 1: 
-                perso.pdv = int(perso.pdv) + 15
-                print('Vous avez maintenant',perso.pdv,"points de vie")
-                potion -= 1
+            perso.pdv = int(perso.pdv) + 15
+            print('Vous avez maintenant',perso.pdv,"points de vie")
+            perso.potion = "Non"
     else:
         print("Vous n'avez plus de potion, vous devez donc attaquer")
         attaque_guerrier(ennemis_restant)
@@ -203,17 +204,19 @@ while int(perso.pdv) > 0 or int(ennemie1.pdv) > 0 and int(ennemie2.pdv) > 0 and 
     print('Tour ennemi!\n')
     tour_ennemis(ennemis_restant)
 
-    with open('Save.csv', 'w', newline='') as file:  
+    with open('Save.csv', 'w+', newline='') as file:  
         writer = csv.writer(file)
         writer.writerow(["nom", "sexe", "pdv", "dmg", "classe"])
         writer.writerow([ennemie1.nom, ennemie1.sexe, ennemie1.pdv, ennemie1.dmg, ennemie1.classe])
         writer.writerow([ennemie2.nom, ennemie2.sexe, ennemie2.pdv, ennemie2.dmg, ennemie2.classe])
         writer.writerow([ennemie3.nom, ennemie3.sexe, ennemie3.pdv, ennemie3.dmg, ennemie3.classe])
-        writer.writerow([perso.nom, perso.sexe, perso.pdv, perso.dmg, perso.classe])
+        writer.writerow([perso.nom, perso.sexe, perso.pdv, perso.dmg, perso.classe, perso.potion])
 
     if int(perso.pdv) <= 0:
         print('Dommage vous avez perdu :(')
+        os.remove("Save.csv")
         break
     elif int(ennemie1.pdv) <= 0 and int(ennemie2.pdv) <= 0 and int(ennemie3.pdv) <= 0:
         print('Bravo vous avez gagné!')
+        os.remove("Save.csv")
         break
