@@ -2,6 +2,7 @@ import os
 import sys
 import random
 import csv
+import pickle
 
 
 
@@ -32,21 +33,6 @@ def firstSave(ennemie1, ennemie2, ennemie3, perso):
         writer.writerow([ennemie2.nom, ennemie2.sexe, ennemie2.pdv, ennemie2.dmg, ennemie2.classe])
         writer.writerow([ennemie3.nom, ennemie3.sexe, ennemie3.pdv, ennemie3.dmg, ennemie3.classe])
         writer.writerow([perso.nom, perso.sexe, perso.pdv, perso.dmg, perso.classe, perso.potion])
-
-nom = input("Choisissez le nom de votre personnage: ")
-sexe = input("Choisissez le sexe de votre personnage (F pour femme et H pour homme): ")
-if sexe == "H" or sexe == "F" or sexe == "h" or sexe == "f":
-    classe = int(input("Choisissez votre classe (1 = guerrier, 2 = mage ou 3 = archer): "))
-    if classe == 1: 
-        perso = Personnage(nom, sexe, 50, 8, "Guerrier","Oui")               
-    elif classe == 2:
-        perso = Personnage(nom, sexe, 25, 16, "Mage",'Oui')
-    elif classe == 3:
-        perso = Personnage(nom, sexe, 35, 13, "Archer",'Oui')
-    else:
-        print("Valeur invalide, veuillez relancer le programme")
-else:
-    print("Valeur invalide, veuillez relancer le programme")
 
 def attaque_guerrier(ennemis_restant):
     if perso.classe == "Guerrier":
@@ -181,21 +167,29 @@ def partie():
     if perso.potion == "Oui":
         action = int(input("Voulez vous attaquer ou vous soigner? (1 pour attaquer; 2 pour vous soigner)\n"))
         if action == 1:
-            attaque_guerrier(ennemis_restant)
-            attaque_mage(ennemis_restant)
-            attaque_archer(ennemis_restant)
+            if perso.classe == "Guerrier":
+                attaque_guerrier(ennemis_restant)
+            elif perso.classe == "Mage":    
+                attaque_mage(ennemis_restant)
+            elif perso.classe == "Archer":    
+                attaque_archer(ennemis_restant)
         elif action == 2:
             perso.pdv = int(perso.pdv) + 15
             print('Vous avez maintenant',perso.pdv,"points de vie")
             perso.potion = "Non"
+            
         else:
             print("Choisissez 1 ou 2")
             partie()
     else:
         print("Vous n'avez plus de potion, vous devez donc attaquer")
-        attaque_guerrier(ennemis_restant)
-        attaque_mage(ennemis_restant)
-        attaque_archer(ennemis_restant)            
+        print(perso.classe)
+        if perso.classe == "Guerrier":
+            attaque_guerrier(ennemis_restant)
+        elif perso.classe == "Mage":    
+            attaque_mage(ennemis_restant)
+        elif perso.classe == "Archer":    
+            attaque_archer(ennemis_restant)            
     print('\n')
 
     print('Tour ennemi!\n')
@@ -204,10 +198,32 @@ def partie():
 ennemis_restant = 3
 potion = 1
 pv_perdus = 0
-if os.path.exists('Save.csv'):
-    pass
+if os.path.exists("sauvegarde"):
+    with open("sauvegarde", "rb") as save:
+        perso = pickle.load(save)
 else:
-    firstSave(ennemie1, ennemie2, ennemie3, perso)   
+    nom = input("Choisissez le nom de votre personnage: ")
+    sexe = input("Choisissez le sexe de votre personnage (F pour femme et H pour homme): ")
+    if sexe == "H" or sexe == "F" or sexe == "h" or sexe == "f":
+        classe = int(input("Choisissez votre classe (1 = guerrier, 2 = mage ou 3 = archer): "))
+        if classe == 1: 
+            perso = Personnage(nom, sexe, 50, 8, "Guerrier","Oui")
+            with open("sauvegarde", "wb") as save:
+                pickle.dump(perso, save)               
+        elif classe == 2:
+            perso = Personnage(nom, sexe, 25, 16, "Mage",'Oui')
+            with open("sauvegarde", "wb") as save:
+                pickle.dump(perso, save)
+        elif classe == 3:
+            perso = Personnage(nom, sexe, 35, 13, "Archer",'Oui')
+            with open("sauvegarde", "wb") as save:
+                pickle.dump(perso, save)
+        else:
+            print("Valeur invalide, veuillez relancer le programme")
+    else:
+        print("Valeur invalide, veuillez relancer le programme")
+    firstSave(ennemie1, ennemie2, ennemie3, perso)      
+
 while int(perso.pdv) > 0 or int(ennemie1.pdv) > 0 and int(ennemie2.pdv) > 0 and int(ennemie3.pdv) > 0:
     print('Votre tour!\n')
     partie()
@@ -222,8 +238,10 @@ while int(perso.pdv) > 0 or int(ennemie1.pdv) > 0 and int(ennemie2.pdv) > 0 and 
     if int(perso.pdv) <= 0:
         print('Dommage vous avez perdu :(')
         os.remove("Save.csv")
+        os.remove("sauvegarde")
         break
     elif int(ennemie1.pdv) <= 0 and int(ennemie2.pdv) <= 0 and int(ennemie3.pdv) <= 0:
         print('Bravo vous avez gagné!')
         os.remove("Save.csv")
+        os.remove("sauvegarde")
         break
