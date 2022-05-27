@@ -29,7 +29,7 @@ def lireCSV():
 
 def firstSave(ennemie1, ennemie2, ennemie3, perso):
     with open('Save.csv', 'w+', newline='') as file:  
-        writer = csv.writer(file)
+        writer = csv.writer(file)      
         writer.writerow(["Nom", "Sexe", "Pdv", "Dmg", "Classe", "Vivant"])
         writer.writerow([ennemie1.nom, ennemie1.sexe, ennemie1.pdv, ennemie1.dmg, ennemie1.classe, ennemie1.vivant])
         writer.writerow([ennemie2.nom, ennemie2.sexe, ennemie2.pdv, ennemie2.dmg, ennemie2.classe, ennemie2.vivant])
@@ -48,6 +48,7 @@ def attaques():
                 if int(ennemie1.pdv) <= 0:
                     print("Bravo vous avez tué Dracula!")
                     ennemie1.vivant = "Non"
+                    ennemie1.pdv = 0
     elif attaque == 2 and perso.classe == "Guerrier":
         if int(ennemie2.pdv) <= 0:
             print("Miss Pacman est déjà morte, visez un autre ennemi!")
@@ -58,6 +59,7 @@ def attaques():
             if int(ennemie2.pdv) <= 0:
                 print("Bravo vous avez tué Miss Pacman!")
                 ennemie2.vivant = "Non"
+                ennemie2.pdv = 0
     elif attaque == 3 and perso.classe == "Guerrier":
         if int(ennemie3.pdv) <= 0:
             print("Starfox est déjà mort, visez un autre ennemi!")
@@ -67,7 +69,11 @@ def attaques():
             print("Vous infligez 8 dégâts à Starfox!\nIl lui reste encore:",ennemie3.pdv,"points de vie")
             if int(ennemie3.pdv) <= 0:
                 print("Bravo vous avez tué Starfox!")
-                ennemie3.vivant = "Non"                      
+                ennemie3.vivant = "Non"      
+                ennemie3.pdv = 0
+    elif attaque != 1 or attaque != 2 or attaque != 3:
+        print("Choisissez entre 1, 2 ou 3") 
+        attaques()                           
     elif attaque == 1 and perso.classe == "Mage":
         if int(ennemie1.pdv) <= 0:
             print("Dracula est déjà mort, visez un autre ennemi!")
@@ -78,6 +84,7 @@ def attaques():
             if int(ennemie1.pdv) <= 0:
                 print("Bravo vous avez tué Dracula!")
                 ennemie1.vivant = "Non"
+                ennemie1.pdv = 0
     elif attaque == 2 and perso.classe == "Mage":
         if int(ennemie2.pdv) <= 0:
             print("Miss Pacman est déjà morte, visez un autre ennemi!")
@@ -88,6 +95,7 @@ def attaques():
             if int(ennemie2.pdv) <= 0:
                 print("Bravo vous avez tué Miss Pacman!")
                 ennemie2.vivant = "Non"
+                ennemie2.pdv = 0
     elif attaque == 3 and perso.classe == "Mage":
         if int(ennemie3.pdv) <= 0:
             print("Starfox est déjà mort, visez un autre ennemi!")
@@ -97,7 +105,11 @@ def attaques():
             print("Vous infligez 16 dégâts à Starfox!\nIl lui reste ",ennemie3.pdv,"points de vie")
             if int(ennemie3.pdv) <= 0:
                 print("Bravo vous avez tué Starfox!")
-                ennemie3.vivant = "Non"  
+                ennemie3.vivant = "Non" 
+                ennemie3.pdv = 0 
+    elif attaque != 1 or attaque != 2 or attaque != 3:
+        print("Choisissez entre 1, 2 ou 3") 
+        attaques()            
     elif attaque == 1 and perso.classe == "Archer":
         if int(ennemie1.pdv) <= 0:
             print("Dracula est déjà mort, visez un autre ennemi!")
@@ -108,6 +120,7 @@ def attaques():
             if int(ennemie1.pdv) <= 0:
                 print("Bravo vous avez tué Dracula!")
                 ennemie1.vivant = "Non"
+                ennemie1.pdv = 0
     elif attaque == 2 and perso.classe == "Archer":
         if int(ennemie2.pdv) <= 0:
             print("Miss Pacman est déjà morte, visez un autre ennemi!")
@@ -118,6 +131,7 @@ def attaques():
             if int(ennemie2.pdv) <= 0:
                 print("Bravo vous avez tué Miss Pacman!")
                 ennemie2.vivant = "Non"
+                ennemie2.pdv = 0
     elif attaque == 3 and perso.classe == "Archer":
         if int(ennemie3.pdv) <= 0:
             print("Starfox est déjà mort, visez un autre ennemi!")
@@ -128,6 +142,10 @@ def attaques():
             if int(ennemie3.pdv) <= 0:
                 print("Bravo vous avez tué Starfox!")
                 ennemie3.vivant = "Non"
+                ennemie3.pdv = 0
+    elif attaque != 1 or attaque != 2 or attaque != 3:
+        print("Choisissez entre 1, 2 ou 3") 
+        attaques()            
 
 def tour_ennemis():                    
     action_ennemie = [1, 2]
