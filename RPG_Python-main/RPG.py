@@ -44,11 +44,15 @@ def attaques():
             attaques()                 
         elif int(ennemie1.pdv) > 0:
                 ennemie1.pdv = int(ennemie1.pdv) - 8
-                print("Vous infligez 8 dégâts à Dracula!\nIl lui reste encore",ennemie1.pdv,"points de vie")          
+                print("Vous infligez 8 dégâts à Dracula!\nIl lui reste",ennemie1.pdv,"points de vie")
+                with open ("dracula", "wb") as dracula:
+                    pickle.dump(ennemie1, dracula)   
                 if int(ennemie1.pdv) <= 0:
                     print("Bravo vous avez tué Dracula!")
                     ennemie1.vivant = "Non"
                     ennemie1.pdv = 0
+                    with open ("dracula", "wb") as dracula:
+                        pickle.dump(ennemie1, dracula)    
     elif attaque == 2 and perso.classe == "Guerrier":
         if int(ennemie2.pdv) <= 0:
             print("Miss Pacman est déjà morte, visez un autre ennemi!")
@@ -56,10 +60,14 @@ def attaques():
         elif int(ennemie2.pdv) > 0:
             ennemie2.pdv = int(ennemie2.pdv) - 8
             print("Vous infligez 8 dégâts à Miss Pacman!\nIl lui reste encore:",ennemie2.pdv,"points de vie")
+            with open ("mpacman", "wb") as mpacman:
+                pickle.dump(ennemie2, mpacman)    
             if int(ennemie2.pdv) <= 0:
                 print("Bravo vous avez tué Miss Pacman!")
                 ennemie2.vivant = "Non"
                 ennemie2.pdv = 0
+                with open ("mpacman", "wb") as mpacman:
+                    pickle.dump(ennemie2, mpacman) 
     elif attaque == 3 and perso.classe == "Guerrier":
         if int(ennemie3.pdv) <= 0:
             print("Starfox est déjà mort, visez un autre ennemi!")
@@ -71,9 +79,12 @@ def attaques():
                 print("Bravo vous avez tué Starfox!")
                 ennemie3.vivant = "Non"      
                 ennemie3.pdv = 0
+                with open ("fox", "wb") as fox:
+                    pickle.dump(ennemie3, fox) 
     elif attaque != 1 or attaque != 2 or attaque != 3:
         print("Choisissez entre 1, 2 ou 3") 
-        attaques()                           
+        attaques()    
+
     elif attaque == 1 and perso.classe == "Mage":
         if int(ennemie1.pdv) <= 0:
             print("Dracula est déjà mort, visez un autre ennemi!")
@@ -81,10 +92,14 @@ def attaques():
         elif int(ennemie1.pdv) > 0:
             ennemie1.pdv = int(ennemie1.pdv) - 16
             print("Vous infligez 16 dégâts à Dracula!\nIl lui reste ",ennemie1.pdv,"points de vie")
+            with open ("dracula", "wb") as dracula:
+                pickle.dump(ennemie1, dracula) 
             if int(ennemie1.pdv) <= 0:
                 print("Bravo vous avez tué Dracula!")
                 ennemie1.vivant = "Non"
                 ennemie1.pdv = 0
+                with open ("dracula", "wb") as dracula:
+                    pickle.dump(ennemie1, dracula) 
     elif attaque == 2 and perso.classe == "Mage":
         if int(ennemie2.pdv) <= 0:
             print("Miss Pacman est déjà morte, visez un autre ennemi!")
@@ -92,10 +107,14 @@ def attaques():
         elif int(ennemie2.pdv) > 0:
             ennemie2.pdv = int(ennemie2.pdv) - 16
             print("Vous infligez 16 dégâts à Miss Pacman!\nIl lui reste ",ennemie2.pdv,"points de vie")
+            with open ("mpacman", "wb") as mpacman:
+                pickle.dump(ennemie2, mpacman) 
             if int(ennemie2.pdv) <= 0:
                 print("Bravo vous avez tué Miss Pacman!")
                 ennemie2.vivant = "Non"
                 ennemie2.pdv = 0
+                with open ("mpacman", "wb") as mpacman:
+                    pickle.dump(ennemie2, mpacman) 
     elif attaque == 3 and perso.classe == "Mage":
         if int(ennemie3.pdv) <= 0:
             print("Starfox est déjà mort, visez un autre ennemi!")
@@ -103,13 +122,18 @@ def attaques():
         elif int(ennemie3.pdv) > 0:
             ennemie3.pdv = int(ennemie3.pdv) - 16
             print("Vous infligez 16 dégâts à Starfox!\nIl lui reste ",ennemie3.pdv,"points de vie")
+            with open ("fox", "wb") as fox:
+                pickle.dump(ennemie3, fox) 
             if int(ennemie3.pdv) <= 0:
                 print("Bravo vous avez tué Starfox!")
                 ennemie3.vivant = "Non" 
                 ennemie3.pdv = 0 
+                with open ("fox", "wb") as fox:
+                    pickle.dump(ennemie3, fox) 
     elif attaque != 1 or attaque != 2 or attaque != 3:
         print("Choisissez entre 1, 2 ou 3") 
-        attaques()            
+        attaques()
+
     elif attaque == 1 and perso.classe == "Archer":
         if int(ennemie1.pdv) <= 0:
             print("Dracula est déjà mort, visez un autre ennemi!")
@@ -117,10 +141,14 @@ def attaques():
         elif int(ennemie1.pdv) > 0:
             ennemie1.pdv = int(ennemie1.pdv) - 13
             print("Vous infligez 13 dégâts à Dracula!\nIl lui reste ",ennemie1.pdv,"points de vie")
+            with open ("dracula", "wb") as dracula:
+                pickle.dump(ennemie1, dracula) 
             if int(ennemie1.pdv) <= 0:
                 print("Bravo vous avez tué Dracula!")
                 ennemie1.vivant = "Non"
                 ennemie1.pdv = 0
+                with open ("dracula", "wb") as dracula:
+                    pickle.dump(ennemie1, dracula) 
     elif attaque == 2 and perso.classe == "Archer":
         if int(ennemie2.pdv) <= 0:
             print("Miss Pacman est déjà morte, visez un autre ennemi!")
@@ -128,10 +156,14 @@ def attaques():
         elif int(ennemie2.pdv) > 0:
             ennemie2.pdv = int(ennemie2.pdv) - 13
             print("Vous infligez 13 dégâts à Dracula!\nIl lui reste ", ennemie2.pdv,"points de vie")
+            with open ("mpacman", "wb") as mpacman:
+                pickle.dump(ennemie2, mpacman) 
             if int(ennemie2.pdv) <= 0:
                 print("Bravo vous avez tué Miss Pacman!")
                 ennemie2.vivant = "Non"
                 ennemie2.pdv = 0
+                with open ("mpacman", "wb") as mpacman:
+                    pickle.dump(ennemie2, mpacman)
     elif attaque == 3 and perso.classe == "Archer":
         if int(ennemie3.pdv) <= 0:
             print("Starfox est déjà mort, visez un autre ennemi!")
@@ -139,10 +171,14 @@ def attaques():
         elif int(ennemie3.pdv) > 0:
             ennemie3.pdv = int(ennemie3.pdv) - 13
             print("Vous infligez 13 dégâts à Starfox!\nIl lui reste ",ennemie3.pdv,"points de vie")
+            with open ("fox", "wb") as fox:
+                pickle.dump(ennemie3, fox)
             if int(ennemie3.pdv) <= 0:
                 print("Bravo vous avez tué Starfox!")
                 ennemie3.vivant = "Non"
                 ennemie3.pdv = 0
+                with open ("fox", "wb") as fox:
+                    pickle.dump(ennemie3, fox)
     elif attaque != 1 or attaque != 2 or attaque != 3:
         print("Choisissez entre 1, 2 ou 3") 
         attaques()            
@@ -169,6 +205,8 @@ def tour_ennemis():
             print("Starfox vous inflige 6 points de dommage! \n Il vous reste ",perso.pdv,"points de vie\n")
         elif choix_action_ennemie == 2 and int(ennemie3.pdv) > 0:
             print("Starfox passe son tour\n")
+    with open ("sauvegarde", "wb") as save:
+                pickle.dump(perso, save)        
 
 def crea_perso():
     sexe = input("Choisissez le sexe de votre personnage (F pour femme et H pour homme): ")
@@ -178,24 +216,33 @@ def crea_perso():
             if classe == 1: 
                 perso = Personnage(nom, sexe, 50, 8, "Guerrier","Oui", "Oui")
                 with open("sauvegarde", "wb") as save:
-                    pickle.dump(perso, save) 
-                    pickle.dump(ennemie1, save)
-                    pickle.dump(ennemie2, save)
-                    pickle.dump(ennemie3, save)              
+                    pickle.dump(perso, save)
+                with open("dracula", "wb") as dracula:
+                    pickle.dump(ennemie1, dracula)     
+                with open("mpacman", "wb") as mpacman:
+                    pickle.dump(ennemie2, mpacman)
+                with open("fox", "wb") as fox:
+                    pickle.dump(ennemie3, fox)                  
             elif classe == 2:
                 perso = Personnage(nom, sexe, 25, 16, "Mage",'Oui', "Oui")
                 with open("sauvegarde", "wb") as save:
                     pickle.dump(perso, save) 
-                    pickle.dump(ennemie1, save)
-                    pickle.dump(ennemie2, save)
-                    pickle.dump(ennemie3, save)  
+                with open("dracula", "wb") as dracula:
+                    pickle.dump(ennemie1, dracula)     
+                with open("mpacman", "wb") as mpacman:
+                    pickle.dump(ennemie2, mpacman)
+                with open("fox", "wb") as fox:
+                    pickle.dump(ennemie3, fox)  
             elif classe == 3:
                 perso = Personnage(nom, sexe, 35, 13, "Archer",'Oui', "Oui")
                 with open("sauvegarde", "wb") as save:
                     pickle.dump(perso, save) 
-                    pickle.dump(ennemie1, save)
-                    pickle.dump(ennemie2, save)
-                    pickle.dump(ennemie3, save)       
+                with open("dracula", "wb") as dracula:
+                    pickle.dump(ennemie1, dracula)     
+                with open("mpacman", "wb") as mpacman:
+                    pickle.dump(ennemie2, mpacman)
+                with open("fox", "wb") as fox:
+                    pickle.dump(ennemie3, fox)       
             else:
                 print("Veuillez choisir entre 1, 2 et 3")
                 crea_perso_classe()
@@ -214,6 +261,8 @@ def partie():
             perso.pdv = int(perso.pdv) + 15
             print('Vous avez maintenant',perso.pdv,"points de vie")
             perso.potion = "Non"
+            with open ("sauvegarde", "wb") as save:
+                pickle.dump(perso, save)
         else:
             print("Choisissez 1 ou 2")
             partie()
@@ -227,11 +276,21 @@ potion = 1
 if os.path.exists("sauvegarde"):
     with open("sauvegarde", "rb") as save:
         perso = pickle.load(save)
+        print(perso)
+    with open("dracula", "rb") as dracula:
+        ennemie1 = pickle.load(dracula)
+        print(ennemie1)
+    with open("mpacman", "rb") as mpacman:
+        ennemie2 = pickle.load(mpacman)
+        print(ennemie2)
+    with open("fox", "rb") as fox:
+        ennemie3 = pickle.load(fox)
+        print(ennemie3)          
 else:
     nom = input("Choisissez le nom de votre personnage: ")  
     crea_perso()
     with open("sauvegarde", "rb") as save:
-        perso = pickle.load(save)    
+        perso = pickle.load(save)
 while int(perso.pdv) > 0 or int(ennemie1.pdv) > 0 and int(ennemie2.pdv) > 0 and int(ennemie3.pdv) > 0:
     print('Votre tour!\n')
     partie()
@@ -247,9 +306,15 @@ while int(perso.pdv) > 0 or int(ennemie1.pdv) > 0 and int(ennemie2.pdv) > 0 and 
         print('Dommage vous avez perdu :(')
         os.remove("Save.csv")
         os.remove("sauvegarde")
+        os.remove("dracula")
+        os.remove("mpacman")
+        os.remove("fox")
         break
     elif int(ennemie1.pdv) <= 0 and int(ennemie2.pdv) <= 0 and int(ennemie3.pdv) <= 0:
         print('Bravo vous avez gagné!')
         os.remove("Save.csv")
         os.remove("sauvegarde")
+        os.remove("dracula")
+        os.remove("mpacman")
+        os.remove("fox")
         break
