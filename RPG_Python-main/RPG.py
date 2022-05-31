@@ -292,17 +292,6 @@ def partie():
         else:
             print("Choisissez 1 ou 2")
             partie()
-    elif perso.potion == "Non" and int(ennemie1.pdv) <= 0 or perso.potion == "Non" and int(ennemie2.pdv) <= 0 or perso.potion == "Non" and int(ennemie3.pdv) <= 0:
-        for i in range(len(inventaire)):
-            if i == 1:
-                craft = input("Voulez vous créer une potion? (Répondez oui ou non)")
-                if craft == "oui" or craft == "Oui":
-                    print("Vous créez une potion")
-                    perso.potion == "Oui"
-                    with open ("sauvegarde", "wb") as save:
-                        pickle.dump(perso, save)
-                    inventaire = []
-                    attaques()
     else:                  
         print("Vous n'avez plus de potion, vous devez donc attaquer")
         attaques()             
